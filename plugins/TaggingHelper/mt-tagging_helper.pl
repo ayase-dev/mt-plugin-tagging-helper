@@ -29,6 +29,9 @@ if ($mt_version =~ /^5/){
 elsif ($mt_version =~ /^4/){
     MT->add_callback('template_param.edit_entry', 9, $plugin, \&hdlr_mt4_param);
 }
+elsif ($mt_version =~ /^6/){
+    MT->add_callback('template_param.edit_entry', 9, $plugin, \&hdlr_mt5_param);
+}
 else {
     MT->add_callback('MT::App::CMS::AppTemplateSource.edit_entry', 9, $plugin, \&hdlr_mt3_source);
 }
@@ -216,7 +219,7 @@ TaggingHelper.getBody = function () {
 }
 EOT
 
-    my $getbody = ($mt_version =~ /^[45]/) ? $getbody4 : $getbody3;
+    my $getbody = ($mt_version =~ /^[456]/) ? $getbody4 : $getbody3;
     $html =~ s/__getbody/$getbody/;
     return $plugin->translate_templatized($html);
 }
